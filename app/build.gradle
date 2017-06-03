@@ -59,6 +59,11 @@ android {
             signingConfig signingConfigs.signConfig
         }
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 dependencies {
