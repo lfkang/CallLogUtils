@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="call_type_str">
+        <item>1 INCOMING_TYPE</item>
+        <item>2 OUTGOING_TYPE</item>
+        <item>3 MISSED_TYPE</item>
+        <item>4 VOICEMAIL_TYPE</item>
+        <item>5 REJECTED_TYPE/INCOMING_IMS_TYPE</item>
+        <item>6 BLOCKED_TYPE/OUTGOING_IMS_TYPE</item>
+        <item>7 ANSWERED_EXTERNALLY_TYPE/MISSED_IMS_TYPE</item>
+    </string-array>
+
+    <string-array name="call_type_int">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+</resources>
