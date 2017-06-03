@@ -1,5 +1,24 @@
 apply plugin: 'com.android.application'
 
+def keystoreFilepath = ''
+def keystorePSW = ''
+def keystoreAlias = ''
+def keystoreAliasPSW = ''
+// default keystore file, PLZ config file path in local.properties
+def keyfile = file('s.keystore.temp')
+
+Properties properties = new Properties()
+// local.properties file in the root director
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+keystoreFilepath = properties.getProperty("keystore.path")
+
+if (keystoreFilepath) {
+    keystorePSW = properties.getProperty("keystore.password")
+    keystoreAlias = properties.getProperty("keystore.alias")
+    keystoreAliasPSW = properties.getProperty("keystore.alias_password")
+    keyfile = file(keystoreFilepath)
+}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -7,13 +26,37 @@ android {
         applicationId "com.candykk.calllog"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode VERSION_CODE.toInteger()
+        versionName VERSION_NAME
     }
+
+    signingConfigs {
+        signConfig {
+            storeFile keyfile
+            storePassword keystorePSW
+            keyAlias keystoreAlias
+            keyPassword keystoreAliasPSW
+        }
+    }
+
     buildTypes {
-        release {
-            minifyEnabled false
+        debug {
+//            minifyEnabled false
+            minifyEnabled true
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            if (keyfile.exists()) {
+                signingConfig signingConfigs.signConfig
+                println("WITH -> buildTypes -> release: using jks key")
+            } else {
+                println("WITH -> buildTypes -> release: using default key")
+            }
+        }
+        release {
+            minifyEnabled true
+//            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signConfig
         }
     }
 }
