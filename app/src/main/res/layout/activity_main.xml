@@ -99,13 +99,26 @@
                 android:entries="@array/call_type_str" />
         </LinearLayout>
 
-        <Switch
-            android:id="@+id/switch_video"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="视频通话" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Switch
+                android:id="@+id/switch_video"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="视频通话" />
+
+            <EditText
+                android:id="@+id/et_data_usage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="流量消耗"
+                android:inputType="number" />
+        </LinearLayout>
 
 
         <Button

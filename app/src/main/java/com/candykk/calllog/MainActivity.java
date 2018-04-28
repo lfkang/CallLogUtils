@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     EditText mNumberView;
     EditText mDurationView;
     Switch mVideoSwitch;
+    EditText mEtDataUsage;
     //    TextView dateDisplay;
     final int DATE_DIALOG = 1;
     final int TIME_DIALOG = 2;
@@ -58,8 +60,18 @@ public class MainActivity extends AppCompatActivity {
         mNumberView = (EditText) findViewById(R.id.etNumber);
         mDurationView = (EditText) findViewById(R.id.etCallDuration);
         mVideoSwitch = (Switch) findViewById(R.id.switch_video);
+        mEtDataUsage = (EditText) findViewById(R.id.et_data_usage);
+
         if (Build.VERSION.SDK_INT < 21) {
             mVideoSwitch.setVisibility(View.GONE);
+        } else {
+            mEtDataUsage.setVisibility(mVideoSwitch.isChecked() ? View.VISIBLE : View.GONE);
+            mVideoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    mEtDataUsage.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+                }
+            });
         }
 
         btnDatePick.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
         values.put(CallLog.Calls.DURATION, TextUtils.isEmpty(mDurationView.getText()) ? "0" : mDurationView.getText().toString());
         if (Build.VERSION.SDK_INT >= 21 && mVideoSwitch.isChecked()) {
             values.put(CallLog.Calls.FEATURES, CallLog.Calls.FEATURES_VIDEO);
+            if (!TextUtils.isEmpty(mEtDataUsage.getText())) {
+                values.put(CallLog.Calls.DATA_USAGE, mEtDataUsage.getText().toString());
+            }
         }
         Uri result = null;
         if (Build.VERSION.SDK_INT < 21) {

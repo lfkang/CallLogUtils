@@ -20,8 +20,8 @@ if (keystoreFilepath) {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
+//    buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.candykk.calllog"
         minSdkVersion 16
@@ -67,7 +67,6 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
 }
